@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "mongoose": "^8.16.0"
+  },
+  "name": "clonetubebackend",
+  "version": "1.0.0",
+  "description": "Cloneyt",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Clonetube"
+  ],
+  "author": "Harish",
+  "license": "ISC"
+}
