@@ -9,7 +9,6 @@ import {verifyJWT} from "../middlewares/auth.middleware.js"
 
 const router=Router()
 
-
 // for register
 router.route("/register").post(
     upload.fields([{name:"avatar",maxCount:1},{name:"coverimage",maxCount:1}]

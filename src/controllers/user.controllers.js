@@ -5,6 +5,8 @@ import Apires from "../utils/Apires.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
+//generate access and refresh tokens
+// this function will generate the access and refresh tokens for the user
 const generateRefreshandAccessToken = async (userId) => {
   try {
     const user = await User.findById(userId);
@@ -16,8 +18,8 @@ const generateRefreshandAccessToken = async (userId) => {
     const refreshToken = user.getRefreshToken();
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
-
     return { accessToken, refreshToken };
+    
   } catch (error) {
     console.error("Token Generation Error:", error.message);
     throw new Apierrors(
@@ -241,6 +243,7 @@ const refreshedAccessToken = async (req, res) => {
   }
 };
 
+// update password
 const updatePassword = async (req, res) => {
   try{
     const {oldPass,newPass}=req.body

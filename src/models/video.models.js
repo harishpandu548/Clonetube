@@ -26,7 +26,6 @@ const videoSchema=new Schema({
     views:{
         type:Number,
         default:0,
-        
     },
     owner:{
         type:Schema.Types.ObjectId,
@@ -38,7 +37,6 @@ const videoSchema=new Schema({
     }
 },{timestamps:true})
 
-videoSchema.plugin(mongooseAggregatePaginate)
-
+videoSchema.plugin(mongooseAggregatePaginate) //helps us for pagination like in simple terms how many videos u want to show in page
 
 export const Video=mongoose.model("Video",videoSchema)
