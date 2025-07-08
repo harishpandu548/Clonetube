@@ -5,8 +5,8 @@ import { Subscription } from "../models/subscriptions.models.js"
 const subscribeToChannel=async(req,res)=>{
     const {channelId}=req.params
 
-    if(channelId===req.user.id.toString()){
-        return res.satus(400).json({
+    if(channelId===req.user._id.toString()){
+        return res.status(400).json({
             success:false,
             message:"You cannot subscribe to your own channel"
         })
@@ -14,7 +14,7 @@ const subscribeToChannel=async(req,res)=>{
 
     const alreadySubscribed=await Subscription.findOne({
         channel:channelId,
-        subscriber:req.user.id
+        subscriber:req.user._id
     })
 
     if(alreadySubscribed){
@@ -62,7 +62,7 @@ const unsubscribeFromChannel=async(req,res)=>{
 // check the status of subscription
 const checkSubscriptionStatus=async(req,res)=>{
     const {channelId}=req.params
-    console.log("channelId",channelId)
+    // console.log("channelId",channelId)
 
     const isSubscribed=await Subscription.exists({
         channel:channelId,

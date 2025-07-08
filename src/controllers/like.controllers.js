@@ -14,13 +14,14 @@ const likeVideo = async (req, res) => {
             })
         }
 
-        const alreadyLiked=await Like.findOne({video:videoId})
-        if(alreadyLiked){
-            return res.status(400).json({
-                success: false,
-                message: "You have already liked this video"
-            });
-        }
+        // const alreadyLiked=await Like.findOne({video:videoId})
+        // if(alreadyLiked){
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "You have already liked this video"
+        //     });
+        // }
+
         const like=await Like.create({
             video:videoId,
             likedby:req.user._id
@@ -85,6 +86,33 @@ const likeCount = async (req, res) => {
         }); }
 }
 
+const checkvideoLike = async (req, res) => {
+    const {videoId}=req.params;
+    try{
+        const like=await Like.findOne({video:videoId,likedby:req.user._id});
+        if(!like){
+            return res.status(200).json({
+                success: false,
+                message: "You have not liked this video"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            liked:like,
+            message: "You have liked this video"
+        });
+
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Failed to check video like",
+            error: error.message
+        })
+
+    }
+}
 
 // Like and unlike comment
 const likeComment=async(req,res)=>{
@@ -99,13 +127,13 @@ const likeComment=async(req,res)=>{
             });
         }
 
-        const alreadycommentLiked=await Like.findOne({commentliked:commentId,likedby:req.user._id});
-        if(alreadycommentLiked){
-            return res.status(400).json({
-                success: false,
-                message: "You have already liked this comment"
-            });
-        }
+        // const alreadycommentLiked=await Like.findOne({commentliked:commentId,likedby:req.user._id});
+        // if(alreadycommentLiked){
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "You have already liked this comment"
+        //     });
+        // }
 
         const commentLike=await Like.create({
             commentliked:commentId,
@@ -136,10 +164,12 @@ const unlikeComment = async (req, res) => {
     }
 
     await like.deleteOne();
+    // console.log("Like comment:", JSON.stringify(like, null, 2));
+
 
     res.status(200).json({
       success: true,
-      message: "Comment unliked"
+      message: "Comment unliked"   
     });
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to unlike comment", error: error.message });
@@ -159,5 +189,32 @@ const getCommentLikeCount = async (req, res) => {
   }
 };
 
+const checkCommentLike = async (req, res) => {
+    const {commentId}=req.params;
+    try{
+        const comment=await Like.findOne({commentliked:commentId,likedby:req.user._id});
+        if(!comment){
+            return res.status(200).json({
+                success: false,
+                message: "You have not liked this comment"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            liked:comment,
+            message: "You have liked this comment"
+        });
 
-export { likeVideo,unLikeVideo,likeCount,likeComment,unlikeComment,getCommentLikeCount };
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Failed to check comment like",
+            error: error.message
+        })
+    }
+}
+
+
+export { likeVideo,unLikeVideo,likeCount,likeComment,checkCommentLike,checkvideoLike,unlikeComment,getCommentLikeCount };

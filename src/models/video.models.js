@@ -31,6 +31,12 @@ const videoSchema=new Schema({
         type:Schema.Types.ObjectId,
         ref:"User", 
     },
+    viewsby:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:"User"
+        }
+    ],
     ispublished:{
         type:Boolean,
         default:true

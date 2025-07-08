@@ -6,8 +6,8 @@ const router = Router();
 router.use(verifyJWT)
 
 // subscribe to a channel
-router.post("/:channelId",subscribeToChannel)
-router.delete("/:channelId",unsubscribeFromChannel)
+router.post("/channel/:channelId",subscribeToChannel)
+router.delete("/channel/:channelId",unsubscribeFromChannel)
 router.get("/status/:channelId",checkSubscriptionStatus)
 router.get("/count/:channelId",getTotalSubscribers)
 

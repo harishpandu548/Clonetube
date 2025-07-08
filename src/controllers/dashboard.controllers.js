@@ -6,9 +6,9 @@ import { Subscription } from '../models/subscriptions.models.js';
 
 const dashboardOverview=async (req, res) => {
     const userId = req.user._id;
+
     try {
     const totalVideos = await Video.countDocuments({ owner: userId });
-    //Total views (sum of views on all videos)
     const userVideos = await Video.find({ owner: userId });
     const totalViews = userVideos.reduce((acc, vid) => acc + (vid.views || 0), 0);
     const totalComments = await Comment.countDocuments({ owner: userId });

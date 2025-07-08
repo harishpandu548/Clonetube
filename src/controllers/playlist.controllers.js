@@ -30,4 +30,19 @@ const createPlaylist = async (req, res) => {
     }
 }
 
-export { createPlaylist };
+const getplaylist=async(req,res)=>{
+    try{
+        const playlist=await Playlist.find({owner:req.user._id}).populate("videos")
+        res.status(200).json({
+            success:true,
+            playlist
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            error:error
+        })
+    }
+}
+
+export { createPlaylist,getplaylist };
