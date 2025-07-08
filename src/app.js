@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser"
 const app=express()
 
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
+    origin:clonetube-frontend-kwz6.vercel.app,
     credentials:true
 }))
 
