@@ -5,9 +5,14 @@ import cookieParser from "cookie-parser"
 const app=express()
 
 app.use(cors({
-    origin:"https://clonetube-clone-of-yt-backend.onrender.com",
-    credentials:true
-}))
+  origin: "https://clonetube-frontend-kwz6.vercel.app",
+  credentials: true,
+}));
+
+app.get("/", (req, res) => {
+  res.send("Clonetube Backend is running ");
+});
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
