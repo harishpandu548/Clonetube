@@ -13,11 +13,11 @@ app.get("/", (req, res) => {
   res.send("Clonetube Backend is running ");
 });
 
-
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static("public"))
-app.use(cookieParser())
+
 
 // user router
 import router from "./routes/user.routes.js"

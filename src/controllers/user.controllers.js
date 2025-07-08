@@ -104,6 +104,7 @@ const registerUser = async (req, res) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true, 
+      sameSite:"None"
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -166,6 +167,8 @@ const loginUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: true,
+      sameSite:"None"
+
     };
     return res
       .status(200)
@@ -196,6 +199,7 @@ const logoutUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: true,
+      sameSite:"None"
     };
     return res
       .status(200)
@@ -237,6 +241,7 @@ const refreshedAccessToken = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: true,
+      sameSite:"None"
     };
 
     const { accessToken, refreshToken } = await generateRefreshandAccessToken(
