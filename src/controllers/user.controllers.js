@@ -201,6 +201,8 @@ const logoutUser = async (req, res) => {
       secure: true,
       sameSite:"None"
     };
+    console.log("cookies:", req.cookies);
+    console.log("req.user:", req.user);
     return res
       .status(200)
       .clearCookie("accessToken", options)
