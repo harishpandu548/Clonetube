@@ -18,12 +18,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static("public"))
 
-//testing
-app.get("/test-cookie", (req, res) => {
-  console.log("Cookies received:", req.cookies);
-  res.send("Cookies checked!");
-});
-
 // user router
 import router from "./routes/user.routes.js"
 app.use("/api/v1/users",router)
