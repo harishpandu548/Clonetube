@@ -1,30 +1,34 @@
 import dotenv from "dotenv";
 import dbConnection from "./db/index.js";
-import { app } from "./app.js"; //  Use this one!
-import express from "express";
-
+import { app } from "./app.js";
 import path from "path";
-const __dirname = path.resolve();
+import { fileURLToPath } from "url";
 
-app.use(express.static(path.join(__dirname, "client/dist"))); // or build folder
+// Load environment variables early
+dotenv.config({ path: "./.env" });
 
-// ⬇️ Catch-all route for frontend routing
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist/index.html"));
-});
+// DB Connection
+dbConnection()
+  .then(() => {
+    const PORT = process.env.PORT || 5000;
 
+    // Serve frontend build (assuming Vite build is inside /frontend/dist)
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const frontendPath = path.join(__dirname, "frontend", "dist");
 
-// this step was important bcz when app runs the first file running is index.js as we made in package.josn as index.js as entry file so when this loads we try to load env varaibles as soon as possible to get available for others
-dotenv.config({
-    path:"./.env"
-})
+    app.use(express.static(frontendPath));
 
-// db connection
-dbConnection().then(()=>{
-    app.listen(process.env.PORT,()=>{
-        console.log("server running at port ",process.env.PORT)
-    })
+    // SPA Fallback: send index.html for unknown routes
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(frontendPath, "index.html"));
+    });
 
-}).catch((error)=>{
-    console.log("db connection error",error)
-})
+    // Start server
+    app.listen(PORT, () => {
+      console.log(" Server running at port", PORT);
+    });
+  })
+  .catch((error) => {
+    console.log(" DB connection error:", error);
+  });
