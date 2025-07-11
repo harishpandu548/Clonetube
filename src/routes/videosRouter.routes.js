@@ -11,12 +11,16 @@ import {
 import { upload } from "../middlewares/multer.middlewares.js";
 
 const router = Router();
-router.use(verifyJWT);
 
 router
   .route("/")
   .get(getAllVideos)
-  .post(
+
+router.use(verifyJWT);
+
+router
+.route("/")
+.post(
     upload.fields([
       {
         name: "videofile",

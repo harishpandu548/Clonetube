@@ -75,7 +75,7 @@ const likeCount = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Like count fetched successfully",
-            data: { count }
+            data:count 
         });
     }
     catch(error){
