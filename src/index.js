@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import dbConnection from "./db/index.js";
 import { app } from "./app.js"; //  Use this one!
+import express from "express";
 
 import path from "path";
 const __dirname = path.resolve();
