@@ -1,9 +1,8 @@
 import dotenv from "dotenv";
 import dbConnection from "./db/index.js";
 import { app } from "./app.js";
-import path from "path";
-import { fileURLToPath } from "url";
-import express from "express";
+
+
 
 // Load env variables early
 dotenv.config({ path: "./.env" });
