@@ -49,7 +49,7 @@ const getAllCommentsForVideo=async(req,res)=>{
             });
         }
 
-        const comments=await Comment.find({video:videoId}).populate("owner", "username avatar");
+        const comments=await Comment.find({video:videoId}).populate("owner", "_id username avatar");
         console.log(comments);
 
         return res.status(200).json({

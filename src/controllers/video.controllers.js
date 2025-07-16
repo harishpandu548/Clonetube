@@ -257,6 +257,26 @@ const views = async (req, res) => {
   }
 };
 
+//get all the user videos
+const getallvideos=async(req,res)=>{
+  try{
+    const myvideos=await Video.find({owner:req.user._id}).populate("owner","username avatar")
+    return res.status(200).json({
+      success:true,
+      data:myvideos,
+      message:"videos of the user fetched"
+    })
+  }
+  catch(error){
+    return res.status(500).json({
+      success:false,
+      error:error.message,
+      message:"failed getting user videos"
+    })
+  }
+}
+
+
 // search bar ur wish optional
 const searchvideos = async (req, res) => {
   try {
@@ -290,7 +310,7 @@ export {
   getVideoById,
   deleteVideoById,
   updateVideo,
-  views,searchvideos
+  views,searchvideos,getallvideos
 };
 
 // completed the video controller if u want to manupulate the video data like update, delete, get by id, get all videos then u can add it in future
