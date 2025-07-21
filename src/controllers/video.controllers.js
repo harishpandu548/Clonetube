@@ -280,7 +280,7 @@ const getallvideos=async(req,res)=>{
 // search bar ur wish optional
 const searchvideos = async (req, res) => {
   try {
-    const { query } = req.query;
+    const { query } = req.query?.trim();
     if (!query) {
       return res.status(400).json({
         success: false,
