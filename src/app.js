@@ -45,4 +45,10 @@ app.use("/api/v1/dashboard",dashboardRouter)
 import playlistRouter from "./routes/playlist.routes.js"
 app.use("/api/v1/playlists",playlistRouter)
 
+// Health check route
+app.get("/api/v1/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
+
 export {app}
